@@ -77,21 +77,6 @@ namespace ItchyOwl.Extensions
             return new float[4] { v.x, v.y, v.z, v.w };
         }
 
-        public static SerializableStructs.Vector2 AsSerializable(this Vector2 v)
-        {
-            return new SerializableStructs.Vector2(v.x, v.y);
-        }
-
-        public static SerializableStructs.Vector3 AsSerializable(this Vector3 v)
-        {
-            return new SerializableStructs.Vector3(v.x, v.y, v.z);
-        }
-
-        public static SerializableStructs.Vector4 AsSerializable(this Vector4 v)
-        {
-            return new SerializableStructs.Vector4(v.x, v.y, v.z, v.w);
-        }
-
         #region Math
         public static Vector2 Subtract(this Vector2 v, Vector2 vector)
         {

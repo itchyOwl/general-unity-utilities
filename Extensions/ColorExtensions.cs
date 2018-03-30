@@ -10,11 +10,6 @@ namespace ItchyOwl.Extensions
             return new float[4] { color.r, color.g, color.b, color.a };
         }
 
-        public static SerializableStructs.Color AsSerializable(this Color color)
-        {
-            return new SerializableStructs.Color(color.r, color.g, color.b, color.a);
-        }
-
         public static bool EqualsColor(this Color color, Color otherColor, bool ignoreAlpha = true)
         {
             if (ignoreAlpha)

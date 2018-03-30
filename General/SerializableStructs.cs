@@ -20,9 +20,14 @@ namespace ItchyOwl.General
                 this.y = y;
             }
 
-            public UnityEngine.Vector2 ToUnityVector()
+            public static implicit operator UnityEngine.Vector2(Vector2 v)
             {
-                return new UnityEngine.Vector2(x, y);
+                return new UnityEngine.Vector2(v.x, v.y);
+            }
+
+            public static implicit operator Vector2(UnityEngine.Vector2 v)
+            {
+                return new Vector2(v.x, v.y);
             }
         }
 
@@ -38,9 +43,14 @@ namespace ItchyOwl.General
                 this.z = z;
             }
 
-            public UnityEngine.Vector3 ToUnityVector()
+            public static implicit operator UnityEngine.Vector3(Vector3 v)
             {
-                return new UnityEngine.Vector3(x, y, z);
+                return new UnityEngine.Vector3(v.x, v.y, v.z);
+            }
+
+            public static implicit operator Vector3(UnityEngine.Vector3 v)
+            {
+                return new Vector3(v.x, v.y, v.z);
             }
         }
 
@@ -57,9 +67,14 @@ namespace ItchyOwl.General
                 this.w = w;
             }
 
-            public UnityEngine.Vector4 ToUnityVector()
+            public static implicit operator UnityEngine.Vector3(Vector4 v)
             {
-                return new UnityEngine.Vector4(x, y, z, w);
+                return new UnityEngine.Vector4(v.x, v.y, v.z);
+            }
+
+            public static implicit operator Vector4(UnityEngine.Vector4 v)
+            {
+                return new Vector4(v.x, v.y, v.z, v.w);
             }
         }
 
@@ -76,9 +91,14 @@ namespace ItchyOwl.General
                 this.a = a;
             }
 
-            public UnityEngine.Color ToUnityColor()
+            public static implicit operator UnityEngine.Color(Color c)
             {
-                return new UnityEngine.Color(r, g, b, a);
+                return new UnityEngine.Color(c.r, c.g, c.b, c.a);
+            }
+
+            public static implicit operator Color(UnityEngine.Color c)
+            {
+                return new Color(c.r, c.g, c.b, c.a);
             }
         }
     }
