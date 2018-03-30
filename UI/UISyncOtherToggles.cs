@@ -6,8 +6,9 @@ namespace ItchyOwl.UI
 {
     /// <summary>
     /// Seeks IToggleables from the targets and synchronizes their toggle calls.
+    /// Warning: Don't use to cross sync the targets, because that will cause an infinite loop.
     /// </summary>
-    public class UIToggleSync : MonoBehaviour
+    public class UISyncOtherToggles : MonoBehaviour
     {
         /// <summary>
         /// Cannot serialize interfaces, thus GameObject is used.
