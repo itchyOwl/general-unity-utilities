@@ -3,14 +3,16 @@ using System;
 namespace ItchyOwl.General
 {
     /// <summary>
-    /// Many Unity structs are not marked as serializable and cannot thus be serialized in saved data. Therefore we have to use these custom classes.
+    /// Unity structs are not marked as serializable and cannot thus be serialized by .Net BinaryFormatter. 
+    /// One solution around this, is to convert the Unity structs to custom structs before saving them in binary format. 
+    /// Note that this is required only for binary.
     /// </summary>
     public class SerializableStructs
     {
         [Serializable]
         public struct Vector2
         {
-            public float x, y;
+            public readonly float x, y;
 
             public Vector2(float x, float y)
             {
@@ -27,7 +29,7 @@ namespace ItchyOwl.General
         [Serializable]
         public struct Vector3
         {
-            public float x, y, z;
+            public readonly float x, y, z;
 
             public Vector3(float x, float y, float z)
             {
@@ -45,7 +47,7 @@ namespace ItchyOwl.General
         [Serializable]
         public struct Vector4
         {
-            public float x, y, z, w;
+            public readonly float x, y, z, w;
 
             public Vector4(float x, float y, float z, float w)
             {
@@ -62,7 +64,7 @@ namespace ItchyOwl.General
         }
 
         [Serializable]
-        public struct Color
+        public readonly struct Color
         {
             public float r, g, b, a;
             
