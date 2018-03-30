@@ -64,9 +64,9 @@ namespace ItchyOwl.General
         }
 
         [Serializable]
-        public readonly struct Color
+        public struct Color
         {
-            public float r, g, b, a;
+            public readonly float r, g, b, a;
             
             public Color(float r, float g, float b, float a)
             {
