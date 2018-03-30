@@ -7,7 +7,7 @@ Most of the code is written by myself. Whenever I've used the work of someone el
 
 The code is licenced with [MIT](https://opensource.org/licenses/MIT). Feel free to use it as you wish in your projects.
 
-Also check out my blog at [https://itchyowl.com](https://itchyowl.com) and the assets that I've published in [Unity Asset Store](https://assetstore.unity.com/publishers/34622).
+Also check out my blog at [https://itchyowl.com](https://itchyowl.com) and the assets that I've published on [Unity Asset Store](https://assetstore.unity.com/publishers/34622).
 
 ## Dependencies
 Unfortunately this repository is not very modular. But that's partly by design. The reason for not being modular here, is that much of the code is reused in multiple places. However, I may try to change this in future.
@@ -21,7 +21,7 @@ Tweener is not meant to replace the popular animation libraries like [iTween](ht
 
 In the [UI](UI) folder you can find [GUIManager](UI/GUIManager.cs), which is a [singleton](Auxiliary/Singleton.cs) class. It's designed to work as a simple manager that can be placed into any project as it is. Currently if provides methods for displaying screen space notifications and floating UI messages following a 3d target. It also handles all the window selection logic for you. For most projects, I've created a more specific manager that inherits GUIManager.
 
-I'm not a great fan of the singleton pattern, but in some cases it's just unavoidable. [Singleton](Auxiliary/Singleton.cs) provides GetInstance<TDerivate>() method that updates the instance to a more specific type. Use this method, in the derivative manager, so the instance is automatically updated for you.
+I'm not a huge fan of the singleton pattern, but in some cases it's just unavoidable. [Singleton](Auxiliary/Singleton.cs) provides GetInstance<TDerivate>() method that updates the instance to a more specific type. Use this method, in the derivative manager, so the instance is automatically updated for you.
 
 The GUI settings should be defined in a [GUIPreset](UI/GUIPreset.cs) or a ScriptableObject that inherits that class. New ScriptableObjects can be created with [ScriptableObjectFactory](ScriptableObjectFactory/Editor/ScriptableObjectFactory.cs), which uses reflection to find all the ScriptableObjects in the project. 
 
