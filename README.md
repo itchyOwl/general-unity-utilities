@@ -1,4 +1,4 @@
-# General Unity Utilities by itchyOwl 
+# General Unity Utilities by itchyOwl
 
 ## About the repository
 This is a collection of general Unity code that I reuse from a project to another.
