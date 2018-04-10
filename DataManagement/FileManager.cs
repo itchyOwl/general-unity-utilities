@@ -64,24 +64,25 @@ namespace ItchyOwl.DataManagement
                 var dInfo = Directory.CreateDirectory(paths.pathWithoutFileName);
                 if (dInfo.Exists)
                 {
-                    var file = File.Create(paths.fullPath);
-                    T copy = CreateCopyOf(source);
-                    var bf = new BinaryFormatter();
-                    // Throws a serialization exception, which could propably be avoided by using custom serializable classes instead of built-in structs. This is something I don't want to do.
-                    // Use ToArray() extension methods and store the values as arrays instead.
-                    //bf.SurrogateSelector = new UnityStructSurrogate();
-                    try
+                    using (var file = File.Create(paths.fullPath))
                     {
-                        bf.Serialize(file, copy);
+                        T copy = CreateCopyOf(source);
+                        var bf = new BinaryFormatter();
+                        // Throws a serialization exception, which could propably be avoided by using custom serializable classes instead of built-in structs. This is something I don't want to do.
+                        // Use ToArray() extension methods and store the values as arrays instead.
+                        //bf.SurrogateSelector = new UnityStructSurrogate();
+                        try
+                        {
+                            bf.Serialize(file, copy);
+                        }
+                        catch (SerializationException e)
+                        {
+                            Debug.LogError("[FileManager] Cannot serialize: " + e);
+                            return false;
+                        }
+                        Debug.Log("[FileManager] File created at " + paths.fullPath);
+                        return true;
                     }
-                    catch (SerializationException e)
-                    {
-                        Debug.LogError("[FileManager] Cannot serialize: " + e);
-                        return false;
-                    }
-                    file.Close();
-                    Debug.Log("[FileManager] File created at " + paths.fullPath);
-                    return true;
                 }
                 else
                 {
@@ -100,10 +101,11 @@ namespace ItchyOwl.DataManagement
                 try
                 {
                     var bf = new BinaryFormatter();
-                    var file = File.Open(path, FileMode.Open);
-                    T data = (T)bf.Deserialize(file);
-                    file.Close();
-                    return data;
+                    using (var file = File.Open(path, FileMode.Open))
+                    {
+                        T data = (T)bf.Deserialize(file);
+                        return data;
+                    }
                 }
                 catch (SerializationException e)
                 {
