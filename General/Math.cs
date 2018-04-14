@@ -9,6 +9,11 @@ namespace ItchyOwl.General
 {
     public static class Math
     {
+        public static bool IsValid(float value)
+        {
+            return (!float.IsInfinity(value) && !float.IsNaN(value));
+        }
+
         /// <summary>
         /// Float comparison. Note that may still fail in some cases.
         /// References: 
@@ -188,6 +193,16 @@ namespace ItchyOwl.General
             return sum / length;
         }
 
+        public static float DegreesToRadians(float degrees)
+        {
+            return degrees * Mathf.Deg2Rad;
+        }
+
+        public static float RadiansToDegrees(float radians)
+        {
+            return radians * Mathf.Rad2Deg;
+        }
+
         /// <summary>
         /// portion / total * 100. 
         /// </summary>
@@ -210,11 +225,6 @@ namespace ItchyOwl.General
         public static float PercentageFromFraction(float fraction)
         {
             return fraction * 100;
-        }
-
-        public static float Radians(float angle)
-        {
-            return (Mathf.PI / 180) * angle;
         }
 
         public static Vector2 RandomPointInCircleEdge(Vector2 center, float radius, float thickness = 0)
