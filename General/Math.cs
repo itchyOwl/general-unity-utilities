@@ -193,12 +193,12 @@ namespace ItchyOwl.General
             return sum / length;
         }
 
-        public static float DegreesToRadians(float degrees)
+        public static float ToRadians(float degrees)
         {
             return degrees * Mathf.Deg2Rad;
         }
 
-        public static float RadiansToDegrees(float radians)
+        public static float ToDegrees(float radians)
         {
             return radians * Mathf.Rad2Deg;
         }
@@ -261,25 +261,23 @@ namespace ItchyOwl.General
         }
 
         /// <summary>
-        /// Rotates point in 2d space around another point.
-        /// References:
-        /// http://stackoverflow.com/questions/2259476/rotating-a-point-about-another-point-2d
+        /// Rotates a point in 2d space around another point.
+        /// Modified from:
         /// http://www.gamefromscratch.com/post/2012/11/24/GameDev-math-recipes-Rotating-one-point-around-another-point.aspx
         /// </summary>
-        public static Vector2 RotatePointAroundTarget(Vector2 point, Vector2 target, bool clockWise = true)
+        public static Vector2 RotatePointAroundTarget(Vector2 point, Vector2 target, float degrees, bool clockWise = true)
         {
-            Vector2 d = point - target;
-            float speed = Time.deltaTime * 60;  // TODO: This is not actually the speed, as it also affects the rotation angle -> separate into speed and angle
-            float s = speed / d.magnitude;
-            float angle = (Mathf.PI / 180) * s;
-            float sin = Mathf.Sin(angle);
-            float cos = Mathf.Cos(angle);
+            // (Mathf.PI / 180) * degrees
+            var angle = ToRadians(degrees);
+            var sin = Mathf.Sin(angle);
+            var cos = Mathf.Cos(angle);
             if (clockWise)
             {
                 sin = -sin;
             }
-            float x = d.x * cos - d.y * sin + target.x;
-            float y = d.x * sin + d.y * cos + target.y;
+            Vector2 dir = point - target;
+            var x = (cos * dir.x) - (sin * dir.y) + target.x;
+            var y = (sin * dir.x) + (cos * dir.y) + target.y;
             return new Vector2(x, y);
         }
 
