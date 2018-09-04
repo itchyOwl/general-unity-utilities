@@ -154,19 +154,29 @@ namespace ItchyOwl.Extensions
         }
 
         /// <summary>
-        /// Compares the values individually (not the magnitudes).
-        /// TODO: Test! This function might not work as intended!
+        /// Like Approximately, but uses a a custom function for equality checks.
         /// </summary>
-        public static bool IsCloseTo(this Vector2 v, Vector2 other, float margin)
+        public static bool IsNearlyEqualTo(this Vector2 v, Vector2 other, float epsilon = 0.0001f)
         {
-            if (v.Equals(other))
-            {
-                return true;
-            }
-            else
-            {
-                return Mathf.Abs(v.x - other.x) < margin && Mathf.Abs(v.y - other.y) < margin;
-            }
+            return General.Math.NearlyEqual(v.x, other.x, epsilon) && General.Math.NearlyEqual(v.y, other.y, epsilon);
+        }
+
+        /// <summary>
+        /// Like Approximately, but uses a a custom function for equality checks.
+        /// </summary>
+        public static bool IsNearlyEqualTo(this Vector3 v, Vector3 other, float epsilon = 0.0001f)
+        {
+            return General.Math.NearlyEqual(v.x, other.x, epsilon) && General.Math.NearlyEqual(v.y, other.y, epsilon) && General.Math.NearlyEqual(v.z, other.z, epsilon);
+        }
+
+        public static bool Approximately(this Vector2 v, Vector2 other)
+        {
+            return Mathf.Approximately(v.x, other.x) && Mathf.Approximately(v.y, other.y);
+        }
+
+        public static bool Approximately(this Vector3 v, Vector3 other)
+        {
+            return Mathf.Approximately(v.x, other.x) && Mathf.Approximately(v.y, other.y) && Mathf.Approximately(v.z, other.z);
         }
 
         public static bool IsFacing(this Vector3 forward, Vector3 dir, float angle = 0)
