@@ -19,7 +19,7 @@ namespace ItchyOwl.General
         /// References: 
         /// http://floating-point-gui.de/errors/comparison/
         /// https://stackoverflow.com/questions/3874627/floating-point-comparison-functions-for-c-sharp
-        /// NOTE: Use Mathf.Approximately instead?
+        /// NOTE: This is a custom solution, similar to Mathf.Approximately.
         /// </summary>
         public static bool NearlyEqual(float a, float b, float epsilon = 0.0001f)
         {
