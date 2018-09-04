@@ -26,7 +26,7 @@ namespace ItchyOwl.Auxiliary
             //for (int i = 0; i < vertexCount; i++)
             //{
             //    float t = (float)i / (vertexCount - 1);
-            //    Vector3 pos = Lauri.General.Math.Bezier(from, controlPoint, to, t);
+            //    Vector3 pos = ItchyOwl.General.Math.Bezier(from, controlPoint, to, t);
             //    lineRenderer.SetPosition(i, pos);
             //}
             //Debug.DrawLine(from, controlPoint, Color.red, 10);
