@@ -11,6 +11,8 @@ namespace ItchyOwl.Auxiliary
 {
     public class Tween
     {
+        // TODO: static tweener manager that handles tweens (when we don't want to add tweener components to a game object, like iTween)
+        // TODO: Sine, Spring
         public enum EasingMode
         {
             Linear,
