@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using ItchyOwl.UI;
@@ -12,7 +13,7 @@ namespace ItchyOwl.Auxiliary
         /// <summary>
         /// Attempts 0 (default) is infinite.
         /// </summary>
-        public void StartWebLoad(string url, bool allowOnlyOne = false, int attempts = 0, float secondsBetweenAttempts = 5, Action<WWW> callbackIfSuccessful = null, Action callbackIfFails = null)
+        public void StartWebLoad(string url, bool allowOnlyOne = false, int attempts = 0, float secondsBetweenAttempts = 5, Action<UnityWebRequest> callbackIfSuccessful = null, Action callbackIfFails = null)
         {
             if (allowOnlyOne && webLoadCoroutine != null)
             {
@@ -21,9 +22,9 @@ namespace ItchyOwl.Auxiliary
             webLoadCoroutine = StartCoroutine(WebLoad(url, attempts, secondsBetweenAttempts, callbackIfSuccessful, callbackIfFails));
         }
 
-        protected IEnumerator WebLoad(string url, int attempts = 0, float secondsBetweenAttempts = 5, Action<WWW> callbackIfSuccessful = null, Action callbackIfFails = null)
+        protected IEnumerator WebLoad(string url, int attempts = 0, float secondsBetweenAttempts = 5, Action<UnityWebRequest> callbackIfSuccessful = null, Action callbackIfFails = null)
         {
-            var request = new WWW(url);
+            var request = new UnityWebRequest(url);
             yield return request;
             if (request.error != null)
             {
@@ -34,7 +35,7 @@ namespace ItchyOwl.Auxiliary
                     {
                         GUIManager.CreateNotification(string.Format("HTTP error, trying again in {0} seconds...", secondsBetweenAttempts));
                         yield return new WaitForSeconds(secondsBetweenAttempts);
-                        request = new WWW(url);
+                        request = new UnityWebRequest(url);
                         yield return request;
                     }
                 }
@@ -44,7 +45,7 @@ namespace ItchyOwl.Auxiliary
                     {
                         GUIManager.CreateNotification(string.Format("HTTP error, trying again in {0} seconds...", secondsBetweenAttempts));
                         yield return new WaitForSeconds(secondsBetweenAttempts);
-                        request = new WWW(url);
+                        request = new UnityWebRequest(url);
                         yield return request;
                     }
                 }
