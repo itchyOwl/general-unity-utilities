@@ -1,4 +1,7 @@
-﻿namespace ItchyOwl.Extensions
+﻿using System.Globalization;
+using UnityEngine;
+
+namespace ItchyOwl.Extensions
 {
     /// <summary>
     /// Best: blue (use for important logs)
@@ -31,7 +34,7 @@
         yellow
     }
 
-    public static class StringFormattingExtensions
+    public static class FormattingExtensions
     {
         public static string Colored(this string s, Colors color)
         {
@@ -85,6 +88,46 @@
         public static string WrapInTag(this string s, string tagContent)
         {
             return string.Format("{0}{1}{2}", string.Format("{0}{1}{2}", "<", tagContent, ">"), s, string.Format("{0}{1}{2}", "</", tagContent, ">"));
+        }
+
+        public static string FormatSingleDecimal(this float value)
+        {
+            return value.ToString("F1", CultureInfo.InvariantCulture);
+        }
+
+        public static string FormatDoubleDecimal(this float value)
+        {
+            return value.ToString("F2", CultureInfo.InvariantCulture);
+        }
+
+        public static string FormatZeroDecimal(this float value)
+        {
+            return value.ToString("F0", CultureInfo.InvariantCulture);
+        }
+
+        public static string Format(this float value, int decimalCount)
+        {
+            return value.ToString($"F{decimalCount.ToString()}", CultureInfo.InvariantCulture);
+        }
+
+        public static string FormatSingleDecimal(this Vector2 value)
+        {
+            return $"({value.x.FormatSingleDecimal()}, {value.y.FormatSingleDecimal()})";
+        }
+
+        public static string FormatDoubleDecimal(this Vector2 value)
+        {
+            return $"({value.x.FormatDoubleDecimal()}, {value.y.FormatDoubleDecimal()})";
+        }
+
+        public static string FormatZeroDecimal(this Vector2 value)
+        {
+            return $"({value.x.FormatZeroDecimal()}, {value.y.FormatZeroDecimal()})";
+        }
+
+        public static string Format(this Vector2 value, int decimalCount)
+        {
+            return $"({value.x.Format(decimalCount)}, {value.y.Format(decimalCount)})";
         }
     }
 }
