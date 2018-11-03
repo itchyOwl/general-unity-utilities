@@ -30,25 +30,26 @@ namespace ItchyOwl.Extensions
 
         public static string FormatWithSpaces<T>(this T value) where T : struct
         {
-            Type type = value.GetType();
-            if (!type.IsEnum)
-            {
-                throw new ArgumentException("[EnumExtensions] The value must be of type Enum", "value");
-            }
-            string original = value.ToString();
-            var separators = original.Where(c => c.Equals('_') || char.IsUpper(c));
-            var splitted = original.Split(separators.ToArray()).Where(s => !s.IsNullOrEmpty());
-            // Use Linq.Zip if on .Net 4.0?
-            string joined = string.Empty;
-            for (int i = 0; i < splitted.Count(); i++)
-            {
-                joined += separators.ElementAt(i).ToString() + splitted.ElementAt(i);
-                if (i < splitted.Count() - 1)
-                {
-                    joined += " ";
-                }
-            }
-            return joined;
+            return value.ToString().FormatCamelCaseWithSpaces();
+            //Type type = value.GetType();
+            //if (!type.IsEnum)
+            //{
+            //    throw new ArgumentException("[EnumExtensions] The value must be of type Enum", "value");
+            //}
+            //string original = value.ToString();
+            //var separators = original.Where(c => c.Equals('_') || char.IsUpper(c));
+            //var splitted = original.Split(separators.ToArray()).Where(s => !s.IsNullOrEmpty());
+            //// Use Linq.Zip if on .Net 4.0?
+            //string joined = string.Empty;
+            //for (int i = 0; i < splitted.Count(); i++)
+            //{
+            //    joined += separators.ElementAt(i).ToString() + splitted.ElementAt(i);
+            //    if (i < splitted.Count() - 1)
+            //    {
+            //        joined += " ";
+            //    }
+            //}
+            //return joined;
         }
     }
 }
