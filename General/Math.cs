@@ -179,7 +179,7 @@ namespace ItchyOwl.General
         /// </summary>
         public static float WeightedAvg(float[] values, float[] weights)
         {
-            if (values.Length > weights.Length || values.Length < weights.Length)
+            if (values.Length != values.Length)
             {
                 Debug.LogWarning("[Math] values length is not equal to the weights length. Returning zero!");
                 return 0;
@@ -258,6 +258,17 @@ namespace ItchyOwl.General
             //float x = r * Mathf.Cos(t);
             //float y = r * Mathf.Sin(t);
             //return new Vector2(x, y);
+        }
+
+        // Source: https://www.xarg.org/2017/07/how-to-map-a-square-to-a-circle/. TODO: Ensure that works.
+        /// <summary>
+        /// Maps a point in a unit rectangle (0-1) to a unit circle (d = 1).
+        /// </summary>
+        public static Vector2 MapPointInSquareToCircle(Vector2 point)
+        {
+            float x = point.x * Mathf.Sqrt(1 - point.y * point.y / 2);
+            float y = point.y * Mathf.Sqrt(1 - point.x * point.x / 2);
+            return new Vector2(x, y);
         }
 
         /// <summary>
