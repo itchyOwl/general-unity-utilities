@@ -156,65 +156,41 @@ namespace ItchyOwl.DataManagement
         /// <summary>
         /// Returns a new instance of the class with all properties and fields copied.
         /// </summary>
-        public static T CreateCopyOf<T>(T source) where T : new()
-        {
-            return CopyValuesOf(source, new T());
-        }
+        public static T CreateCopy<T>(this T source, BindingFlags flags = BindingFlags.Instance | BindingFlags.Public) where T : new() => CopyValues(source, new T(), flags);
+        public static T CopyValuesTo<T>(this T source, T target, BindingFlags flags = BindingFlags.Instance | BindingFlags.Public) => CopyValues(source, target, flags);
 
         /// <summary>
-        /// Copies the values of the source to the destination. May not work, if the source is of higher inheritance class than the destination.
+        /// Copies the values of the source to the destination. May not work, if the source is of higher inheritance class than the destination. Does not work with virtual properties.
         /// </summary>
-        public static T CopyValuesOf<T>(T source, T destination)
+        public static T CopyValues<T>(T source, T destination, BindingFlags flags = BindingFlags.Instance | BindingFlags.Public)
         {
             if (source == null)
             {
-                Debug.LogWarning("[FileManager] Source is null.");
-                return default(T);
+                throw new Exception("Failed to copy object. Source is null.");
             }
             if (destination == null)
             {
-                Debug.LogWarning("[FileManager] Destination is null.");
-                return default(T);
+                throw new Exception("Failed to copy object. Destination is null.");
             }
             Type type = source.GetType();
-            var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default | BindingFlags.DeclaredOnly;
             var properties = type.GetProperties(flags);
             foreach (var property in properties)
             {
                 if (property.CanWrite)
                 {
-                    try
-                    {
-                        property.SetValue(destination, property.GetValue(source, null), null);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogWarning(e);
-                    }
+                    property.SetValue(destination, property.GetValue(source, null), null);
                 }
             }
             var fields = type.GetFields(flags);
             foreach (var field in fields)
             {
-                try
-                {
-                    field.SetValue(destination, field.GetValue(source));
-                }
-                catch (Exception e)
-                {
-                    Debug.LogWarning(e);
-                }
+                field.SetValue(destination, field.GetValue(source));
             }
-            // Check that the fields match
-            if (fields.Any(f =>
-                {
-                    var value = f.GetValue(destination);
-                    if (value == null) { return false; }
-                    return !value.Equals(f.GetValue(source));
-                }))
-            {
-                Debug.LogWarning("[FileManager] Failed to copy some of the fields.");
-            }
+            // Check that the fields match.Uncomment to apply the test, if in doubt.
+            //if (fields.Any(f => { var value = f.GetValue(destination); return value == null || !value.Equals(f.GetValue(source)); }))
+            //{
+            //    throw new Exception("Failed to copy some of the fields.");
+            //}
             return destination;
         }
 
