@@ -66,7 +66,7 @@ namespace ItchyOwl.DataManagement
                 {
                     using (var file = File.Create(paths.fullPath))
                     {
-                        T copy = CreateCopyOf(source);
+                        T copy = CreateCopy(source);
                         var bf = new BinaryFormatter();
                         // Throws a serialization exception, which could propably be avoided by using custom serializable classes instead of built-in structs. This is something I don't want to do.
                         // Use ToArray() extension methods and store the values as arrays instead.

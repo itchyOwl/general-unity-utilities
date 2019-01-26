@@ -9,13 +9,13 @@ namespace ItchyOwl.Extensions
     {
         /// <summary>
         /// Copies all fields and properties of the source to the destination.
-        /// Usage: myComp.CopyValuesOf(someOtherComponent).
+        /// Usage: myComp.CopyValues(someOtherComponent).
         /// Note: In editor scripts, use EditorUtility.CopySerialized(source, target) instead.
         /// Note that this method may cause unecessary material instances to be instantiated, where we would like to use a shared materials instead.
         /// </summary>
-        public static T CopyValuesOf<T>(this Component comp, T source) where T : Component
+        public static T CopyValues<T>(this Component comp, T source) where T : Component
         {
-            return FileManager.CopyValuesOf(source, comp as T);
+            return FileManager.CopyValues(source, comp as T);
         }
 
         #region Hierarchy
